@@ -1,258 +1,611 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O que é um QUIZ HTML? | Spun</title>
-    <style>
-        /* =========================================
-           UNIVERSO VISUAL SPUN 2026 (Págs 61-65)
-           ========================================= */
-        :root {
-            --spun-energy-green: #6EE870;
-            --spun-fire-red: #EB542F;
-            --spun-galaxy-purple: #6638E5;
-            --spun-clear-ice: #FAFAFA;
-            --spun-graphite: #222222;
-            
-            /* Tipografias Institucionais (Págs 54-60) */
-            --font-primaria: 'Helvena', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            --font-secundaria: 'Monigue', 'Arial Black', Impact, sans-serif;
-            --font-terciaria: 'PP Fraktion Mono', 'Courier New', Courier, monospace;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Criação de Quizzes HTML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0c10;
+    --surface: #12141a;
+    --surface2: #1a1d26;
+    --border: #2a2d3a;
+    --accent: #00e5a0;
+    --accent2: #5b6af7;
+    --accent3: #ff6b4a;
+    --text: #e8eaf0;
+    --text-muted: #7a7f96;
+    --text-dim: #4a4f66;
+    --mono: 'DM Mono', monospace;
+    --display: 'Syne', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
 
-        @page {
-            size: A4 landscape;
-            margin: 0;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: var(--spun-graphite);
-            color: var(--spun-clear-ice);
-            font-family: var(--font-primaria);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            background: var(--spun-graphite);
-            padding: 60px 80px;
-            position: relative;
-            /* Remoção das bordas finas e arredondadas. A Spun é blocada e sólida. */
-        }
-        
-        /* Detalhe de Grafismo Geométrico (Págs 70-81) */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 25px;
-            height: 100%;
-            background: var(--spun-energy-green);
-        }
-        
-        .header {
-            display: flex;
-            align-items: flex-end;
-            margin-bottom: 50px;
-            padding-bottom: 25px;
-            border-bottom: 4px solid var(--spun-clear-ice);
-        }
-        
-        .logo {
-            width: 160px;
-            height: auto;
-            margin-right: 50px;
-            /* Mesclagem e adequação da logo: Forçando o Branco sobre fundo Escuro (Pág 92) */
-            filter: brightness(0) invert(1);
-            mix-blend-mode: screen;
-        }
-        
-        h1 {
-            /* Fonte Monigue: Impacto, CAIXA ALTA e entrelinha justa 0.8 (Pág 59) */
-            font-family: var(--font-secundaria);
-            font-size: 54px;
-            color: var(--spun-clear-ice);
-            font-weight: 900;
-            line-height: 0.8;
-            letter-spacing: -0.02em;
-            text-transform: uppercase;
-        }
-        
-        h1 .highlight {
-            color: var(--spun-energy-green);
-        }
-        
-        .section {
-            margin-bottom: 50px;
-        }
-        
-        .section-title {
-            /* Fonte PP Fraktion Mono: Dados e Detalhes, CAIXA ALTA (Pág 59) */
-            font-family: var(--font-terciaria);
-            font-size: 14px;
-            color: var(--spun-energy-green);
-            margin-bottom: 25px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .intro-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 50px;
-        }
-        
-        .text-block {
-            /* Fonte Helvena Regular, Entrelinha 1.25 (Pág 59) */
-            font-family: var(--font-primaria);
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 1.4; /* Leve adaptação para web, mantendo o aspecto denso */
-            color: var(--spun-clear-ice);
-            text-align: left; /* Alinhamento à esquerda reforça o movimento "direto" da marca */
-        }
-        
-        .features-list {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 20px;
-        }
-        
-        .feature {
-            /* Blocos sólidos e contrastantes, sem fios finos */
-            padding: 25px 20px;
-            background: var(--spun-clear-ice);
-            color: var(--spun-graphite);
-            border-top: 6px solid var(--spun-energy-green);
-        }
-        
-        .feature-title {
-            /* Helvena Bold para Títulos (Pág 58) */
-            font-family: var(--font-primaria);
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: -0.01em;
-        }
-        
-        .feature-desc {
-            font-family: var(--font-primaria);
-            font-weight: 400;
-            font-size: 13px;
-            line-height: 1.3;
-        }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-        .tagline {
-            margin-top: 60px;
-            font-family: var(--font-terciaria);
-            color: var(--spun-energy-green);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        
-        /* Mobile Adaptação */
-        @media screen and (max-width: 900px) {
-            .container {
-                padding: 40px 30px 40px 45px;
-            }
-            .features-list {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .logo {
-                margin-bottom: 30px;
-            }
-            h1 {
-                font-size: 42px;
-            }
-        }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
 
-        @media screen and (max-width: 600px) {
-            .intro-grid, .features-list {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Para Impressão */
-        @media print {
-            @page { size: A4 landscape; }
-            body {
-                background: var(--spun-graphite);
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                padding: 0;
-            }
-            .container { max-width: 100%; border: none; }
-        }
-    </style>
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: .35;
+  }
+
+  .wrapper { display: flex; min-height: 100vh; position: relative; }
+
+  .sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+    z-index: 10;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-logo { padding: 28px 24px 22px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo .badge {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent); background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.2);
+    padding: 3px 8px; border-radius: 3px; display: inline-block; margin-bottom: 10px;
+  }
+  .sidebar-logo h1 { font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.35; }
+
+  .sidebar-nav { padding: 20px 0 40px; }
+  .nav-section-label { font-family: var(--mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-dim); padding: 16px 24px 6px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 9px 24px; text-decoration: none;
+    color: var(--text-muted); font-size: 12.5px; transition: all .2s; border-left: 2px solid transparent;
+  }
+  .nav-item:hover { color: var(--text); background: rgba(255,255,255,.03); }
+  .nav-item.active { color: var(--accent); background: rgba(0,229,160,.05); border-left-color: var(--accent); }
+  .nav-item .num { font-family: var(--mono); font-size: 10px; color: var(--text-dim); min-width: 18px; }
+
+  .main { flex: 1; min-width: 0; }
+
+  .hero {
+    padding: 72px 64px 60px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+  }
+
+  .hero-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  .hero h2 { font-family: var(--display); font-size: 46px; font-weight: 800; line-height: 1.1; color: var(--text); margin-bottom: 20px; }
+  .hero h2 span { color: var(--accent); }
+
+  .content { padding: 0 64px 80px; }
+  .section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 36px; }
+  .section-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.18); padding: 4px 10px; border-radius: 4px; flex-shrink: 0; }
+  .section h2 { font-family: var(--display); font-size: 28px; font-weight: 700; color: var(--text); }
+  
+  .section h3 { font-family: var(--display); font-size: 18px; font-weight: 600; color: var(--text); margin: 40px 0 16px; display: flex; align-items: center; gap: 10px; }
+  .section h3::before { content: ''; width: 4px; height: 18px; background: var(--accent2); border-radius: 2px; }
+
+  .section p { color: var(--text-muted); margin-bottom: 16px; font-weight: 300; }
+  .section strong { color: var(--text); font-weight: 500; }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; transition: all .2s; }
+  .card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+  .card h4 { font-family: var(--display); font-size: 15px; margin-bottom: 10px; color: var(--text); }
+  .card p { font-size: 13.5px; line-height: 1.6; margin: 0; }
+
+  /* TABLES */
+  .config-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 13.5px; }
+  .config-table th { font-family: var(--mono); font-size: 10px; text-transform: uppercase; color: var(--text-dim); text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface2); }
+  .config-table td { padding: 14px 16px; border-bottom: 1px solid rgba(42,45,58,0.5); color: var(--text-muted); }
+  .config-table td:first-child { font-family: var(--mono); color: var(--accent); }
+
+  /* CODE BLOCKS */
+  .code-block { background: #08090a; border: 1px solid var(--border); border-radius: 6px; padding: 20px; font-family: var(--mono); font-size: 13px; color: #a9b1d6; margin: 20px 0; overflow-x: auto; line-height: 1.5; }
+  .code-label { display: block; font-size: 10px; color: var(--text-dim); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* INFO BOX */
+  .info-box { border-left: 4px solid var(--accent2); background: rgba(91,106,247,0.06); padding: 20px; margin: 24px 0; border-radius: 0 8px 8px 0; }
+  .info-box.warn { border-left-color: var(--accent3); background: rgba(255,107,74,0.06); }
+  .info-box strong { display: block; margin-bottom: 6px; color: var(--text); font-family: var(--display); }
+
+  /* TOGGLE CARDS */
+  .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .toggle-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; border-top: 3px solid var(--accent); }
+  .toggle-card.alt { border-top-color: var(--accent3); }
+  .tc-label { font-family: var(--mono); font-size: 11px; margin-bottom: 12px; color: var(--text); display: block; }
+
+  /* STEPS */
+  .steps { margin: 30px 0; }
+  .step { display: flex; gap: 20px; }
+  .step-left { display: flex; flex-direction: column; align-items: center; }
+  .step-dot { width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--mono); color: var(--accent); flex-shrink: 0; }
+  .step-line { width: 1px; flex: 1; background: var(--border); margin: 4px 0; }
+  .step:last-child .step-line { display: none; }
+  .step-content { padding-bottom: 30px; }
+  .step-content h5 { font-family: var(--display); font-size: 15px; margin-bottom: 8px; color: var(--text); }
+
+  /* SHEET GRID */
+  .sheet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+  .sheet-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .sheet-header { background: var(--surface2); padding: 14px 20px; font-family: var(--display); font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border); }
+  .sheet-body { padding: 20px; }
+  .field-row { display: flex; align-items: center; gap: 10px; font-size: 13px; margin-bottom: 8px; color: var(--text-muted); }
+  .field-row::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); }
+
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .hero, .content { padding: 40px 24px; }
+    .hero h2 { font-size: 32px; }
+    .toggle-grid, .sheet-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <div class="header">
-                <img src="https://wordpress-mg-multisite-sub.s3.amazonaws.com/uploads/2026/04/Captura-de-Tela-2026-04-23-as-21.24.57.png" alt="SPUN Logo" class="logo">
-                <h1>O QUE É UM <br><span class="highlight">QUIZ HTML?</span></h1>
-            </div>
-            
-            <div class="section">
-                <div class="section-title">// Definição Operacional</div>
-                <div class="intro-grid">
-                    <div class="text-block">
-                        No contexto de mídia programática, um quiz é um fluxo estratégico de captura de leads que guia o usuário por uma jornada interativa de perguntas ou etapas visuais, com o objetivo de capturar o lead e o redirecionar para sites monetizados.
-                    </div>
-                    <div class="text-block">
-                        Chamamos de Quiz HTML quando a construção desse fluxo ocorre via código HTML personalizado. Diferente de ferramentas prontas que limitam o criador a templates pré-definidos, o Quiz HTML oferece liberdade total de escala e performance. As limitações nesse cenário são apenas as de um código fonte.
-                    </div>
-                </div>
-            </div>
-            
-            <div class="section">
-                <div class="section-title">// Diferenciais Técnicos</div>
-                <div class="features-list">
-                    <div class="feature">
-                        <div class="feature-title">Personalização</div>
-                        <div class="feature-desc">Fluxo de perguntas, condições de resposta e regras de redirecionamento totalmente customizáveis.</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-title">Design em Escala</div>
-                        <div class="feature-desc">Layout adaptável a qualquer identidade visual e estratégia de campanha.</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-title">Performance</div>
-                        <div class="feature-desc">Código leve que garante carregamento rápido e reduz radicalmente o bounce rate.</div>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-title">Controle Total</div>
-                        <div class="feature-desc">Livre configuração de tags do google, scripts de conversão e rastreamento em qualquer etapa.</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="tagline">
-                O futuro é construído em escala.
-            </div>
-        </div>
+<div class="wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="badge">Docs Oficial</div>
+      <h1>Manual de Criação de Quizzes HTML</h1>
     </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Fundamentos</div>
+      <a href="#parte1" class="nav-item active"><span class="num">01</span>O que é um QUIZ HTML</a>
+      <a href="#parte2" class="nav-item"><span class="num">02</span>O Molde SPUN</a>
+      
+      <div class="nav-section-label">Configuração Sistema</div>
+      <a href="#parte3" class="nav-item"><span class="num">03</span>Quiz Externo MySPUN</a>
+      <a href="#parte4" class="nav-item"><span class="num">04</span>Configuração de Rotas</a>
+      <a href="#parte5" class="nav-item"><span class="num">05</span>Organização Planilhas</a>
+
+      <div class="nav-section-label">Desenvolvimento</div>
+      <a href="#parte6" class="nav-item"><span class="num">06</span>Layout e Design (IA)</a>
+      <a href="#parte7" class="nav-item"><span class="num">07</span>Setup do Código</a>
+      <a href="#parte8" class="nav-item"><span class="num">08</span>Hospedagem e Publicação</a>
+
+      <div class="nav-section-label">Validação</div>
+      <a href="#parte9" class="nav-item"><span class="num">09</span>Revisões e Testes</a>
+      <a href="#parte10" class="nav-item"><span class="num">10</span>Catalogação Final</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="hero">
+      <div class="hero-eyebrow">Documentação Técnica Completa</div>
+      <h2>MANUAL DE CRIAÇÃO DE<br><span>QUIZZES HTML</span></h2>
+    </header>
+
+    <div class="content">
+
+      <section class="section" id="parte1">
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <h2>O que é um QUIZ HTML?</h2>
+        </div>
+        <p>No contexto de mídia programática, um quiz é um fluxo estratégico de captura de leads que guia o usuário por uma jornada interativa de perguntas ou etapas visuais, com o objetivo de capturar o lead e o redirecionar para sites monetizados.</p>
+        <p>Chamamos de Quiz HTML quando a construção desse fluxo ocorre via código HTML personalizado. Diferente de ferramentas prontas que limitam o criador a templates e configurações pré-definidas, o Quiz HTML oferece liberdade total: cada elemento visual, cada regra de fluxo e cada detalhe de performance podem ser ajustados sob medida para a campanha. As limitações nesse cenário, idealmente, são apenas as limitações que um código HTML pode ter.</p>
+
+        <h3>Diferenciais Técnicos:</h3>
+        <div class="card-grid">
+          <div class="card">
+            <h4>Personalização</h4>
+            <p>Fluxo de perguntas, condições de resposta e regras de redirecionamento totalmente customizáveis.</p>
+          </div>
+          <div class="card">
+            <h4>Design</h4>
+            <p>Layout adaptável a qualquer identidade visual e estratégia de campanha.</p>
+          </div>
+          <div class="card">
+            <h4>Performance</h4>
+            <p>Código leve que garante carregamento rápido e reduz bounce rate.</p>
+          </div>
+          <div class="card">
+            <h4>Controle Total</h4>
+            <p>Livre configuração de tags do Google, scripts de conversão e rastreamento em qualquer etapa do fluxo, dinâmicas de conversão, informações de payload e validação, entre outros.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="parte2">
+        <div class="section-header">
+          <span class="section-num">02</span>
+          <h2>Como funciona o Quiz HTML no molde SPUN?</h2>
+        </div>
+        <p>Para além do design e do código visual, que são totalmente maleáveis, o código HTML precisa conter um bloco de configuração em JavaScript (o objeto CONFIG) que garanta seu funcionamento em harmonia com o ecossistema do MySPUN. O código atua como o "front-end" (a vitrine), enquanto a comunicação com o sistema ocorre através das seguintes diretrizes técnicas obrigatórias:</p>
+
+        <h3>Vínculo com o Quiz Externo e o MySPUN</h3>
+        <p>O quiz HTML opera conectado a um quiz externo criado previamente no sistema MySPUN. Para que os dados sejam registrados no quiz externo correto, o código precisa declarar o <strong>QUIZ_ID</strong>, o <strong>QUIZ_SLUG</strong> e o <strong>COMPANY_ID</strong>.</p>
+        <ul style="list-style:none; padding-left: 20px;">
+          <li style="margin-bottom:10px;">• <strong>QUIZ_ID:</strong> O número de identificação único gerado para esse quiz específico dentro do MySPUN.</li>
+          <li style="margin-bottom:10px;">• <strong>COMPANY_ID:</strong> O número de identificação da empresa no sistema MySPUN.</li>
+          <li style="margin-bottom:10px;">• <strong>QUIZ_SLUG:</strong> A slug específica configurada no quiz externo no MySPUN (ex: jn-us-emp-n01).</li>
+        </ul>
+
+        <h3>Endpoints de Validação e Registro</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div>
+            <div class="step-content">
+              <h5>Endpoint de Validação de E-mail</h5>
+              <div class="code-block">https://quizzes.spun.com.br/api/validate/email</div>
+              <p>Uma rota padrão acionada em tempo real enquanto o usuário digita. Ela retorna as propriedades do e-mail (se é safe, blacklist, disposable ou duplicate).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div>
+            <div class="step-content">
+              <h5>Endpoint de Mirror (Registro)</h5>
+              <div class="code-block">https://quizzes.spun.com.br/api/lead/{slug}</div>
+              <p>Uma rota dinâmica baseada no slug do quiz externo. A URL completa desse endpoint pode ser copiada diretamente no MySPUN, no painel do quiz externo que está sendo usado. É para cá que o quiz envia, via requisição POST, o payload final, um pacote contendo o nome, e-mail, URL de origem, IDs de identificação e o objeto <strong>quizAnswers</strong> (que armazena todas as opções que o usuário clicou durante as perguntas). É nessa API que o lead é armazenado num primeiro momento.</p>
+              <div class="info-box warn">
+                <strong>Atenção</strong>
+                Vale ressaltar que o quiz externo de onde esse código foi copiado precisa aceitar o domínio de origem do site; essa permissão de URL de origem é configurada diretamente no painel.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Rota de Redirecionamento (Destination URL)</h3>
+        <p>O código precisa ter uma URL de destino configurada. Ao executar o redirecionamento final, o script captura automaticamente todos os parâmetros de rastreio (UTMs) presentes na URL original do anúncio e os anexa a essa URL de destino, garantindo a continuidade do tracking. É importante destacar aqui que geralmente usamos rotas que são também configuradas no MySPUN. Essas rotas de redirecionamento no sistema permitem inserir mais de uma URL final e definir qual a porcentagem de tráfego vai para cada.</p>
+
+        <h3>Traqueamento e DataLayer (GTM)</h3>
+        <p>A estrutura de rastreamento exige a instalação do script do Google Tag Manager na tag &lt;head&gt; da página. O código do quiz se comunica com o GTM via dataLayer.push. O sistema não dispara o pixel apenas no clique final; ele mapeia as respostas da API e envia eventos específicos de diagnóstico (como event: 'blacklist' ou event: 'duplicate') e o evento final de sucesso (event: 'conversaoValida'). Além disso, também devem ser enviados dados e eventos ao GTM em cada etapa do quiz, marcando o avanço nas perguntas, as respostas selecionadas e o engajamento do usuário com o fluxo.</p>
+
+        <h3>Dinâmica de Conversão (Conversion on Registration)</h3>
+        <p>O quiz possui uma variável de controle chamada <strong>CONVERSION_ON_REGISTRATION</strong>. Ela atua como um portão de segurança rigoroso para o disparo da conversão no GTM e define a regra exata de quando o pixel deve ser alimentado. Analisando o comportamento real do código, ela funciona da seguinte forma:</p>
+
+        <div class="toggle-grid">
+          <div class="toggle-card">
+            <span class="tc-label">Se for <strong>true</strong> (Blindagem Total)</span>
+            <p>O evento de conversaoValida só será disparado se o lead cumprir o fluxo com 100% de perfeição. Isso significa que o usuário deve passar pelas validações locais, a API de e-mail deve responder sem instabilidades, o lead não pode cair em nenhum filtro de bloqueio (como blacklist ou e-mail descartável) e, obrigatoriamente, a requisição final para a API de Mirror deve retornar um sucesso (HTTP 200 OK) confirmando que o dado foi salvo no banco. Neste cenário (true), ocorrem muito mais redirecionamentos silenciosos (Soft Redirects). Se qualquer critério não for atingido ou se houver falha de rede no envio, o código ignora o disparo da conversão e apenas redireciona o usuário. Essa configuração protege o algoritmo da plataforma de anúncios, garantindo que ele seja otimizado exclusivamente com leads reais e perfeitamente registrados.</p>
+          </div>
+          <div class="toggle-card alt">
+            <span class="tc-label">Se for <strong>false</strong> (Foco na Intenção)</span>
+            <p>A regra é afrouxada. O evento de conversão é disparado (e o redirecionamento ocorre) mesmo que a requisição final para o banco de dados falhe ou o registro seja ignorado. Nessa condição, o quiz entende que o usuário realizou o preenchimento, e a marcação no pixel prioriza a ação que ocorreu na página, independentemente de instabilidades no servidor de destino no momento do envio.</p>
+          </div>
+        </div>
+
+        <h3>Soft Redirects (Redirecionamentos Silenciosos)</h3>
+        <p>O quiz executa redirecionamentos sem disparar conversão em situações de anomalia. Por exemplo: se a API de validação de e-mail ficar fora do ar (gerando uma "aprovação forçada" por falha de comunicação) ou se a trava de Cooldown identificar que é um usuário enviando o quiz várias vezes seguidas, o script aborta a tentativa de registro. Ele redireciona o usuário para a rota final de destino imediatamente para não perder a chance de monetizar aquele usuário nas quedas, mas faz isso de forma silenciosa, blindando o pixel contra dados corrompidos ou spam.</p>
+
+        <h3>Trava Anti-Spam (Cooldown)</h3>
+        <p>O código possui uma configuração de <strong>COOLDOWN_MINUTES</strong>. Ele grava um registro temporal no localStorage do navegador do usuário. Se o mesmo usuário tentar preencher o quiz novamente dentro desse intervalo de tempo, o código bloqueia o envio na API e o envia silenciosamente para a oferta (soft redirect), evitando disparos duplicados no pixel e sobrecarga no banco de dados.</p>
+
+        <h3>Aceitação de Leads Duplicados (Accept Duplicate)</h3>
+        <p>Através do objeto de configuração, a chave booleana <strong>ACCEPT_DUPLICATE</strong> (true/false) permite gerenciar a entrada de leads que já existem no sistema. Ela define se o código deve aceitar, registrar e disparar a conversão para um lead que a API identificou como duplicado na base. Se marcado como false, esse usuário tem o registro bloqueado e cai na regra de redirecionamento silencioso.</p>
+
+        <h3>Aceitação de E-mails Descartáveis (Accept Disposable)</h3>
+        <p>Seguindo a mesma lógica de filtro, a chave booleana <strong>ACCEPT_DISPOSABLE</strong> (true/false) define se o sistema deve registrar e aceitar leads que utilizaram provedores de e-mail temporários ou descartáveis. Se configurado como false, o quiz ignora o registro na API e não dispara o pixel, redirecionando o usuário de forma silenciosa para não perder o potencial do clique.</p>
+
+        <h3>Script Específico de Conversão</h3>
+        <p>Para que a plataforma de anúncios reconheça o sucesso do fluxo e otimize a campanha corretamente, o registro do pixel é feito através de um script de disparo específico enviado ao Google Tag Manager (GTM). No momento do sucesso da captura do lead, o código deve acionar e executar obrigatoriamente o seguinte bloco:</p>
+        
+        <div class="code-block">
+          <span class="code-label">JavaScript</span>
+          dataLayer.push({<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;'event': 'conversaoValida',<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;'eventCallback': performRedirect,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;'eventTimeout': 2000<br>
+          });
+        </div>
+        <p>É de extrema importância garantir que esse script de conversão esteja perfeitamente inserido no código e seja chamado na lógica exata de sucesso. A chave <strong>event</strong> com o valor 'conversaoValida' é o gatilho preciso que o painel do GTM espera receber para contabilizar a ação. Além disso, as chaves <strong>eventCallback</strong> e <strong>eventTimeout</strong> são fundamentais, pois garantem que o usuário seja redirecionado em segurança para a rota final da oferta logo após o disparo efetivo do pixel. Toda a inteligência de otimização das campanhas depende exclusivamente da execução intacta desse script.</p>
+      </section>
+
+      <section class="section" id="parte3">
+        <div class="section-header">
+          <span class="section-num">03</span>
+          <h2>Configuração de Quiz Externo no MySPUN</h2>
+        </div>
+        <p>Como vimos na parte anterior, o quiz HTML precisa se conectar a um quiz externo configurado dentro do MySPUN. É esse quiz externo que atua como o receptor oficial dos dados capturados. Para garantir o funcionamento perfeito, existem regras claras de criação e preenchimento.</p>
+
+        <h3>Reutilização de Quizzes Externos</h3>
+        <p>Antes de criar um novo quiz externo, é preciso observar a estrutura da operação. Trabalhamos com apenas um quiz externo por suboperação. Se a suboperação em questão já possui um quiz externo ativo no sistema, ele deve obrigatoriamente ser reaproveitado. A criação de um novo quiz externo é exclusiva para lançamentos de novas suboperações. Ao criar um quiz externo, é estritamente necessário configurar os pontos de identificação, segurança e rotas de distribuição. Esses campos garantem que o sistema reconheça a origem do tráfego, proteja os dados e entregue o lead no destino final corretamente.</p>
+
+        <h3>Identificação e Nomenclatura</h3>
+        <p>Para manter a organização do ecossistema, os campos de identificação exigem uma padronização exata baseada na estrutura: operação, país, nicho e suboperação.</p>
+        <table class="config-table">
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Padrão</th>
+              <th>Exemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Título do Quiz</td>
+              <td>Letras maiúsculas com espaços</td>
+              <td>JN US CC N01</td>
+            </tr>
+            <tr>
+              <td>Slug URL</td>
+              <td>Letras minúsculas com hifens</td>
+              <td>jn-us-cc-n01</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Permissões</h3>
+        <p><strong>Domínios:</strong> Configuração essencial, onde precisa configurar a URL exata onde o seu HTML ficará hospedado. O quiz externo bloqueia automaticamente qualquer tentativa de envio de dados que venha de um domínio diferente dos listados aqui.</p>
+
+        <h3>Destinos de API e Distribuição de Leads</h3>
+        <p>Após o recebimento do dado, o MySPUN precisa saber para onde encaminhar esse lead final. A configuração exata dessas APIs é o que garante que o setor de retenção receba os leads corretamente.</p>
+        <ul style="list-style:none; padding-left: 20px;">
+          <li style="margin-bottom:10px;">• <strong>Destinos de API Final:</strong> O campo principal onde entram as APIs. É obrigatório configurar a divisão do tráfego para que a soma desses destinos feche sempre em exatamente 100%.</li>
+          <li style="margin-bottom:10px;">• <strong>Destino Secundário de API Final:</strong> Uma rota de segurança auxiliar. É muito como um plano de contingência para salvar o lead caso o servidor do destino principal falhe.</li>
+        </ul>
+        <p>Ao finalizar a criação do quiz externo, configurando corretamente o título, a slug, os domínios e as APIs, o painel estará pronto para uso. Imediatamente após a criação, o sistema disponibiliza as informações essenciais para a sua integração. Será possível identificar o número gerado (o ID do quiz externo) para preencher a variável <strong>QUIZ_ID</strong> nas configurações do código, bem como copiar a URL completa do endpoint para inserir na rota de mirror do seu código HTML. Com esses passos concluídos, a comunicação entre a página e o MySPUN estará perfeitamente estabelecida.</p>
+      </section>
+
+      <section class="section" id="parte4">
+        <div class="section-header">
+          <span class="section-num">04</span>
+          <h2>Configuração de Rotas no MySPUN</h2>
+        </div>
+        <p>As rotas são links de redirecionamento que nos permitem enviar os usuários capturados na página para outros destinos. Essa funcionalidade é fundamental no nosso ecossistema, pois possibilita dividir o tráfego de forma percentual entre mais de uma queda.</p>
+
+        <h3>Reutilização de Rotas</h3>
+        <p>Seguindo a mesma lógica aplicada aos quizzes externos, as rotas são separadas por suboperação. Caso a suboperação já possua uma rota ativa no sistema, ela deve obrigatoriamente ser reaproveitada. A criação de uma nova rota ocorre exclusivamente para novas suboperações.</p>
+
+        <h3>Padronização de Domínio</h3>
+        <p>É muito importante prestar atenção ao domínio escolhido para a criação do link. Esse detalhe precisa ser conferido especificamente para cada operação antes de iniciar a configuração da rota em si.</p>
+
+        <h3>Identificação e Nomenclatura</h3>
+        <p>Para as rotas, o padrão de nomenclatura possui um elemento extra, pensado para facilitar a identificação rápida dentro do painel do MySPUN.</p>
+        <table class="config-table">
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Padrão</th>
+              <th>Exemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tag</td>
+              <td>Op / País / Nicho / AQUISICAO / Subop (MAIÚSCULAS)</td>
+              <td>JN US CC AQUISICAO N01</td>
+            </tr>
+            <tr>
+              <td>Slug URL</td>
+              <td>Minúsculas com hifens</td>
+              <td>jn-us-cc-aquisicao-n01</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Configuração de Destinos</h3>
+        <ul style="list-style:none; padding-left: 20px;">
+          <li style="margin-bottom:10px;">• <strong>URLs de Destino:</strong> Campo dedicado à inserção dos links finais para os quais a rota vai redirecionar o usuário.</li>
+          <li style="margin-bottom:10px;">• <strong>Percentual de Redirecionamento:</strong> Configuração obrigatória que define o volume exato de tráfego que cada URL cadastrada receberá.</li>
+        </ul>
+        <p>Integração Final: Com a configuração salva, a rota estará pronta para uso. O último passo é copiar a URL final gerada pelo sistema e colá-la na configuração de URL de destino (geralmente identificada como <strong>Destination URL</strong>) diretamente no código HTML do seu quiz. É esse passo final que garante que o fluxo leve o usuário para a queda correta após a captura do lead.</p>
+      </section>
+
+      <section class="section" id="parte5">
+        <div class="section-header">
+          <span class="section-num">05</span>
+          <h2>Organização em Planilhas</h2>
+        </div>
+        <p>Após configurar rotas e quizzes no MySPUN, é obrigatório registrar os dados na nossa planilha antes de subir o código HTML. O link da planilha é: <a href="https://docs.google.com/spreadsheets/d/1FeMIJjd5Ltl6-2qI7lXyiz84NUQOGJyfooqDIFhI-NU/edit?gid=0&authuser=1#gid=0" style="color:var(--accent2); text-decoration: none;">Link da Planilha de Controle</a></p>
+
+        <div class="sheet-grid">
+          <div class="sheet-card">
+            <div class="sheet-header">Aba de Rotas (Links)</div>
+            <div class="sheet-body">
+              <div class="field-row">Operação</div>
+              <div class="field-row">Suboperação</div>
+              <div class="field-row">URL da Rota</div>
+              <div class="field-row">Tag</div>
+              <div class="field-row">Status (Ativo/Inativo)</div>
+            </div>
+          </div>
+          <div class="sheet-card">
+            <div class="sheet-header">Aba de Quizzes Externos</div>
+            <div class="sheet-body">
+              <div class="field-row">Operação</div>
+              <div class="field-row">Suboperação</div>
+              <div class="field-row">ID do Quiz</div>
+              <div class="field-row">Slug</div>
+              <div class="field-row">URL do Endpoint</div>
+              <div class="field-row">Status</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="parte6">
+        <div class="section-header">
+          <span class="section-num">06</span>
+          <h2>Criação de Layout e Design do Quiz</h2>
+        </div>
+        <p>Para além das configurações técnicas (que devem seguir a padronização descrita anteriormente), é possível personalizar totalmente o layout e o design do quiz. Atualmente, não é necessário programar manualmente os códigos HTML. Em vez disso, utilizamos Inteligência Artificial (IA) para construir e gerar o código da página como um todo.</p>
+        
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div>
+            <div class="step-content">
+              <h5>Base de Criação</h5>
+              <p>Ao planejar um layout novo, é recomendado partir do código de um quiz ativo e bem configurado. Entregar esse material como base permite que a IA absorva a estrutura e entenda perfeitamente os padrões operacionais que devem ser mantidos.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div>
+            <div class="step-content">
+              <h5>Engenharia de Prompts</h5>
+              <p>Nesse processo, é fundamental trabalhar com comandos muito bem desenvolvidos. Isso garante que a IA altere apenas os elementos visuais da página, mantendo estritamente imutáveis os blocos de validação, o objeto de configuração, o traqueamento e as requisições. É essa trava que garante que o novo design continue totalmente funcional.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div>
+            <div class="step-content">
+              <h5>Revisão de Código</h5>
+              <p>Mesmo utilizando excelentes prompts, sempre existe a probabilidade de ocorrerem erros ou interpretações equivocadas por parte da IA. Portanto, é obrigatório analisar com calma o resultado gerado para identificar, entender e corrigir eventuais quebras no fluxo.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div>
+            <div class="step-content">
+              <h5>Aprovação Final</h5>
+              <p>Com o código do novo quiz finalizado, ele deve obrigatoriamente ser enviado ao responsável pela manutenção de quizzes da operação. Essa etapa final garante uma auditoria técnica apurada, atestando se todos os parâmetros estão corretos e se não há pontos destoantes antes de a página ir para o ar.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="parte7">
+        <div class="section-header">
+          <span class="section-num">07</span>
+          <h2>Integração e Configuração Final (Setup do Código)</h2>
+        </div>
+        <p>Após o processo de revisão e aprovação pelo responsável, o próximo passo é garantir que as informações estruturais do quiz, previamente criadas e validadas no painel do MySPUN, sejam inseridas com precisão no código do quiz.</p>
+        <p>Todas essas chaves essenciais devem ser atualizadas diretamente no objeto principal de configuração, chamado <strong>CONFIG</strong>, e no cabeçalho do arquivo HTML:</p>
+
+        <table class="config-table">
+          <thead>
+            <tr>
+              <th>Variável CONFIG</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>QUIZ_ID</td>
+              <td>Inserir o número de identificação único.</td>
+            </tr>
+            <tr>
+              <td>QUIZ_SLUG</td>
+              <td>Inserir a slug criada no sistema.</td>
+            </tr>
+            <tr>
+              <td>COMPANY_ID</td>
+              <td>Atribuir o número de identificação da empresa.</td>
+            </tr>
+            <tr>
+              <td>ENDPOINT_EMAIL_VALIDATION</td>
+              <td>Inserir a rota padrão (ex: https://quizzes.spun.com.br/api/validate/email).</td>
+            </tr>
+            <tr>
+              <td>ENDPOINT_QUIZ_MIRROR</td>
+              <td>Colar a URL do quiz externo copiada do painel.</td>
+            </tr>
+            <tr>
+              <td>DESTINATION_URL</td>
+              <td>Colar o link final gerado nas configurações de rota.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Google Tag Manager (GTM)</h3>
+        <p>Para além das configurações do MySPUN, é estritamente necessário garantir que a estrutura de rastreamento esteja apontando para o local certo. Você deve localizar o script do GTM instalado na tag &lt;head&gt; da página e substituir o código base de identificação padrão (ex: GTM-K3QRK9BF) pelo ID oficial correspondente à operação atual. Isso garante que os eventos enviados via dataLayer alimentem o pixel correto da campanha.</p>
+      </section>
+
+      <section class="section" id="parte8">
+        <div class="section-header">
+          <span class="section-num">08</span>
+          <h2>Hospedagem e Publicação do Quiz</h2>
+        </div>
+        <p>Com o código configurado e validado, o passo final é a publicação da página no domínio correto. Este processo exige atenção total à padronização das URLs e às permissões de segurança do ecossistema.</p>
+
+        <h3>Seleção do Domínio e Subdomínio</h3>
+        <p>Cada operação possui um subdomínio específico que deve ser obrigatoriamente utilizado. É fundamental garantir que este domínio esteja devidamente configurado nas permissões do Quiz Externo dentro do MySPUN.</p>
+
+        <h3>Criação da Página no WordPress</h3>
+        <p>Após a escolha do domínio, acesse o painel administrativo do WordPress para criar a nova página. O título da página deve seguir o padrão de nomenclatura que será utilizado também na slug do quiz. Atualmente, todos os modelos seguem uma estrutura específica. A nomenclatura funciona da seguinte forma:</p>
+        <div class="info-box">
+          <strong>Padrão de Nomenclatura</strong>
+          A estrutura exata é <strong>funil-[nome]-[modelo]</strong>. A parte do nome precisa reforçar uma característica visual ou funcional do quiz, seguida da identificação do modelo.
+          <br><br>
+          <em>Exemplos: funil-slider-m1 ou funil-multistep-m1.</em>
+        </div>
+
+        <h3>Configuração com Elementor</h3>
+        <ul style="list-style:none; padding-left: 20px;">
+          <li style="margin-bottom:10px;">• <strong>Template da Página:</strong> Ao editar com o Elementor, acesse as configurações da página e defina o layout como Elementor Canvas. Isso garante uma página totalmente limpa, sem cabeçalhos ou rodapés do tema original.</li>
+          <li style="margin-bottom:10px;">• <strong>Inserção do Código:</strong> Insira um componente de Bloco HTML na página e cole o código completo que foi revisado e configurado anteriormente.</li>
+        </ul>
+
+        <h3>Publicação e Testes Finais</h3>
+        <p>Após publicar a página, verifique novamente se a slug da URL está seguindo o padrão estabelecido. Com a página no ar, é obrigatório realizar uma revisão prática de todas as validações de campo e das solicitações de API. Certifique-se de que o lead está sendo registrado corretamente e que os redirecionamentos estão operando antes de liberar o quiz para uso oficial nas campanhas.</p>
+      </section>
+
+      <section class="section" id="parte9">
+        <div class="section-header">
+          <span class="section-num">09</span>
+          <h2>Revisões e Testes Finais</h2>
+        </div>
+        <p>Com a página oficialmente publicada no domínio, é obrigatório realizar uma bateria de testes rigorosos. Essa etapa garante a saúde da captação e o funcionamento perfeito do ecossistema. Para isso, você deve utilizar as ferramentas de desenvolvedor do navegador (modo Inspecionar) e o modo Debug do Google Tag Manager (GTM).</p>
+
+        <h3>Testes via Modo Inspecionar (Network e Console)</h3>
+        <p>Através da aba Network do navegador, você deve simular preenchimentos e monitorar o comportamento técnico do código na prática:</p>
+        <ul style="list-style:none; padding-left: 20px;">
+          <li style="margin-bottom:10px;">• <strong>API de Validação de E-mail:</strong> Confirme se as requisições estão sendo feitas em tempo real e se o sistema está retornando os status corretos (safe, blacklist, disposable, duplicate).</li>
+          <li style="margin-bottom:10px;">• <strong>Endpoint de Mirror (Registro):</strong> Valide se a requisição POST final está enviando o pacote de informações completo e se o payload contém todos os dados esperados (respostas do quiz, IDs de configuração e URL de origem).</li>
+          <li style="margin-bottom:10px;">• <strong>Mapeamento de Cenários:</strong> Simule erros propositais para testar em quais cenários o soft redirect (redirecionamento silencioso) está ocorrendo de fato, garantindo que o código blinde o pixel contra leads corrompidos.</li>
+        </ul>
+
+        <h3>Testes via GTM Debug</h3>
+        <p>Com o painel de depuração do GTM aberto em paralelo, é necessário auditar o comportamento do pixel:</p>
+        <ul style="list-style:none; padding-left: 20px;">
+          <li style="margin-bottom:10px;">• <strong>Disparo de Conversão:</strong> Confirme se o evento principal de <strong>conversaoValida</strong> está sendo disparado normalmente e apenas nos cenários adequados, respeitando as regras estabelecidas nas variáveis de configuração.</li>
+          <li style="margin-bottom:10px;">• <strong>Eventos de Diagnóstico:</strong> Verifique se as tags auxiliares de bloqueio ou anomalias também estão sendo lidas pelo dataLayer.</li>
+        </ul>
+
+        <h3>Repasse de UTMs</h3>
+        <p>Depois disso, ao cair na URL de destino final após o preenchimento, você deve verificar a barra de endereços do navegador para confirmar o repasse de UTMs. É obrigatório garantir que todos os parâmetros de rastreio originais da campanha tenham sido transferidos e anexados corretamente ao link da oferta.</p>
+      </section>
+
+      <section class="section" id="parte10" style="border-bottom:none;">
+        <div class="section-header">
+          <span class="section-num">10</span>
+          <h2>Catalogação e Registro Interno</h2>
+        </div>
+        <p>Após a publicação e a validação técnica bem-sucedida, a etapa final obrigatória consiste na catalogação do quiz na Planilha de Controle Interno. Este procedimento assegura a organização dos ativos e o histórico de atualizações da operação.</p>
+
+        <h3>Registro na Planilha de Quizzes</h3>
+        <p>Acesse a planilha pelo link oficial e preencha os campos referentes ao novo quiz produzido:</p>
+        <ul style="list-style:none; padding-left: 20px;">
+          <li style="margin-bottom:10px;">• <strong>Identificação do Ativo:</strong> Insira o nome do modelo, utilizando a slug oficial.</li>
+          <li style="margin-bottom:10px;">• <strong>Arquivo e Versão:</strong> Registre o quiz HTML correspondente e indique a sua versão atual, seguindo a sequência correta (v1, v2, v3 etc).</li>
+        </ul>
+
+        <h3>Documentação por Operação</h3>
+        <p>É fundamental que o registro também seja realizado pelas operações que utilizarão o quiz. Todas as informações de configuração, como IDs e chaves específicas de setup, devem ser catalogadas detalhadamente. Essa documentação centralizada permite uma visão clara de quais ativos estão rodando em cada frente e facilita futuras manutenções ou auditorias técnicas.</p>
+      </section>
+
+    </div></main>
+</div><script>
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(item => item.classList.remove('active'));
+        const id = entry.target.id;
+        const link = document.querySelector(`.nav-item[href="#${id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
 </body>
 </html>
